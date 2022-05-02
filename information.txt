@@ -1,0 +1,74 @@
+On Events
+ - Repository Events
+   - push
+   - pull_request
+   - release
+ - Webhooks
+
+Adding an Action
+===========================================================
+ Action Location   |         Syntax
+===========================================================
+ Public repository | uses: {owner}/{repo}@{ref}
+                   | uses: octocat/super-cool-action@v1
+===========================================================
+ The same repo as  | uses: ./path/to/the/action
+ the workflow      | uses: ./.github/actions/my-local-action
+============================================================
+ A Docker image    | uses: docker://{image}:{tag}
+ registory         | uses: docker://hello-world:latest
+
+ Adding a Command
+ - run: Execute commands in the operating system's shell
+   - Bash: Default shell for Ubuntu, macOs
+   - PowerShell: Default shell for Windows
+
+=======================================================================
+        Run                |        Syntax
+=======================================================================
+   Single-line command     |   run: {command} {parameters} {arguments}
+                           |   run: mv ./output ./archive
+=======================================================================
+  Multiple command         |    run: |
+                           |      Command 1
+                           |      Command 2
+                           |    run: |
+                           |      g++ -C -Wall -g Main.cpp
+                           |      g++ -g -o Main.exe Main.o
+=========================================================================
+
+Conditionals
+on:                              on:
+  push:                            pull_request:
+     branches:                             branches:
+        - develop                             - master
+        - master
+
+ on:
+   push:
+     branches:
+        - develop
+        - master
+   pull_request:
+      branches:
+         - master
+
+  Other Conditionals that needs mentioning
+  - Ignore branches  branches-Ignore
+  - Use tags         tags tags-Ignore
+  - Special characters 'feature/new-feature'
+                        'release/*' 'm?ster'
+
+
+Artifacts
+- Pass data between workflow jobs
+    - Job 1: Create and upload Artifacts
+    - Job 2: Wait for Job 1 to complete
+             Download and use artifact
+
+Manage Pull Request
+- Automatically approve and merge PRs based on criteria
+- Run automated tests to check the code in the PR
+- Check the username that submitted the PR
+- Approve and merge the PR
+- Delete the branch associated with the PR
